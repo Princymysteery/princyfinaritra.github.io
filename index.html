@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Princy Finaritra — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --accent: #4ade80;
+    --accent2: #60a5fa;
+    --accent3: #fbbf24;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --border: #30363d;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo span { color: var(--text); font-style: italic; }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Animated bg grid */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.25);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero-name .first { color: var(--text); }
+  .hero-name .last { color: var(--accent); font-style: italic; }
+
+  .hero-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 460px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .btn-primary {
+    padding: 0.75rem 1.8rem;
+    background: var(--accent);
+    color: #0d1117;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover {
+    background: #6ee7a0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(74,222,128,0.3);
+  }
+
+  .btn-secondary {
+    padding: 0.75rem 1.8rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Hero visual side */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 1s 0.3s ease both;
+    position: relative;
+  }
+
+  .stat-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lang-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .lang-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .lang-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .lang-dot.mg { background: rgba(74,222,128,0.15); color: var(--accent); border: 1px solid var(--accent); }
+  .lang-dot.fr { background: rgba(96,165,250,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
+  .lang-dot.en { background: rgba(251,191,36,0.15); color: var(--accent3); border: 1px solid var(--accent3); }
+
+  .lang-name {
+    font-size: 0.58rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* EXPERIENCE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 180px 1px 1fr;
+    gap: 0 2rem;
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-date {
+    text-align: right;
+    padding-top: 0.2rem;
+  }
+
+  .t-year {
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    display: block;
+  }
+
+  .t-type {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 0.2rem;
+    display: block;
+  }
+
+  .timeline-line {
+    background: var(--border);
+    position: relative;
+  }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(74,222,128,0.5);
+  }
+
+  .timeline-content {
+    padding-top: 0;
+  }
+
+  .t-company {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.3rem;
+  }
+
+  .t-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .t-tasks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .t-tasks li {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .t-tasks li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.6rem;
+    top: 0.1em;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-group:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .skill-group-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    padding: 0.3rem 0.7rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-year {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(96,165,250,0.08);
+    border: 1px solid rgba(96,165,250,0.2);
+    border-radius: 3px;
+    font-size: 0.6rem;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+  }
+
+  /* FORMATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--accent3); }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent3);
+  }
+
+  .edu-year {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--accent3);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-school {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* INTERESTS */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .interest-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .interest-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .interest-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+  .interest-title { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .interest-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.6; }
+
+  /* CONTACT */
+  #contact {
+    padding: 6rem 3rem;
+  }
+
+  .contact-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .contact-item:hover { border-color: var(--accent); }
+
+  .contact-icon {
+    font-size: 1.1rem;
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74,222,128,0.08);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .contact-value { font-size: 0.78rem; color: var(--text); margin-top: 0.1rem; }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  .form-input, .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { height: 120px; }
+
+  .form-btn {
+    padding: 0.85rem;
+    background: var(--accent);
+    color: #0d1117;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .form-btn:hover {
+    background: #6ee7a0;
+    box-shadow: 0 4px 20px rgba(74,222,128,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: var(--accent);
+  }
+
+  .footer-text {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 1.5rem 3rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 1.5rem; }
+    .timeline-item { grid-template-columns: 1fr; }
+    .timeline-line { display: none; }
+    .timeline-date { text-align: left; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    #contact { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Princy <span>Finaritra</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-badge">Disponible · Madagascar</div>
+      <h1 class="hero-name">
+        <span class="first">Princy Finaritra</span><br>
+        <span class="last">Randrianaivoson</span>
+      </h1>
+      <p class="hero-title">Responsable Base de Données & Analyste</p>
+      <p class="hero-desc">
+        Expert en gestion et analyse de données, topographie et systèmes d'information. 
+        Passionné par la transformation des données brutes en décisions stratégiques, 
+        avec une solide expérience terrain et une maîtrise des outils numériques modernes.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Me contacter</a>
+        <a href="#experience" class="btn-secondary">Mon parcours</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Années d'expérience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Postes occupés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Outils maîtrisés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Langues parlées</div>
+        </div>
+      </div>
+
+      <div class="lang-card">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-right:0.5rem;">Langues</div>
+        <div class="lang-item">
+          <div class="lang-dot mg">MG</div>
+          <div class="lang-name">Malagasy</div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-dot fr">FR</div>
+          <div class="lang-name">Français</div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-dot en">EN</div>
+          <div class="lang-name">Anglais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="max-width:1100px;margin:0 auto;padding:6rem 3rem;">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Expérience</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">
+        <span class="t-year">2024 – 2026</span>
+        <span class="t-type">CDI</span>
+      </div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="t-company">BIONEXX</div>
+        <div class="t-role">Responsable Base de Données</div>
+        <ul class="t-tasks">
+          <li>Gouvernance, structuration et fiabilisation des données terrain et numériques</li>
+          <li>Pilotage du cycle de vie complet des données : collecte (KoBoCollect), contrôle qualité, analyse et reporting</li>
+          <li>Leadership des équipes de collecte et de saisie : encadrement, formation, suivi de performance</li>
+          <li>Conception et optimisation de bases de données décisionnelles</li>
+          <li>Création de dashboards analytiques et rapports de pilotage</li>
+          <li>Supervision des opérations terrain : audits, contrôles, évaluations et enquêtes</li>
+          <li>Gestion du parc téléphonique et des outils mobiles de collecte</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">
+        <span class="t-year">2022 – 2023</span>
+        <span class="t-type">CDI</span>
+      </div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="t-company">BIONEXX</div>
+        <div class="t-role">Assistant Traitement de Données</div>
+        <ul class="t-tasks">
+          <li>Support à l'amélioration des traitements de données</li>
+          <li>Analyse des remontées d'informations terrain</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">
+        <span class="t-year">2019 – 2021</span>
+        <span class="t-type">Stage</span>
+      </div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="t-company">Circonscription Topographique</div>
+        <div class="t-role">Technicien Topographe</div>
+        <ul class="t-tasks">
+          <li>Travail administratif, cartographie et gestion des plans</li>
+          <li>Études, production et scan des plans topographiques</li>
+          <li>Analyses de données et descentes terrain</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">
+        <span class="t-year">2019</span>
+        <span class="t-type">Mission</span>
+      </div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="t-company">CENI</div>
+        <div class="t-role">Collecteur & Analyste de Données</div>
+        <ul class="t-tasks">
+          <li>Recueil et analyse des données électorales</li>
+          <li>Validation et transfert sécurisé des données</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="max-width:1100px;margin:0 auto;padding:6rem 3rem;">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Compétences</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">📊 Analyse & Données</div>
+      <div class="skill-list">
+        <span class="skill-tag">Excel Analysis</span>
+        <span class="skill-tag">Google Sheets</span>
+        <span class="skill-tag">App Script</span>
+        <span class="skill-tag">Data Visualisation</span>
+        <span class="skill-tag">KoboCollect</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">🗺️ SIG & Cartographie</div>
+      <div class="skill-list">
+        <span class="skill-tag">QGIS</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">Photogrammétrie</span>
+        <span class="skill-tag">Drone / UAV</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">🛠️ Outils & Plateformes</div>
+      <div class="skill-list">
+        <span class="skill-tag">Google Workspace</span>
+        <span class="skill-tag">BIONEXX</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Support Helpdesk</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">🧠 Soft Skills</div>
+      <div class="skill-list">
+        <span class="skill-tag">Management & Leadership</span>
+        <span class="skill-tag">Esprit Analytique</span>
+        <span class="skill-tag">Résolution de problèmes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="max-width:1100px;margin:0 auto;padding:6rem 3rem;">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Projets Notables</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-icon">🛸</div>
+      <div class="project-year">2021</div>
+      <div class="project-name">Orthophotographie par drone</div>
+      <p class="project-desc">
+        Réalisation complète d'un projet d'orthophotographie aérienne : prise de vue par drone, traitement d'image approfondi, analyse photogrammétrique et élaboration de cartes et plans précis.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">Drone / UAV</span>
+        <span class="project-tag">Photogrammétrie</span>
+        <span class="project-tag">Cartographie</span>
+        <span class="project-tag">SIG</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">📈</div>
+      <div class="project-year">2024 – 2026</div>
+      <div class="project-name">Système de dashboards BIONEXX</div>
+      <p class="project-desc">
+        Conception et déploiement de dashboards analytiques pour le pilotage opérationnel et l'aide à la décision stratégique à partir des données de collecte terrain.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">Data Visualisation</span>
+        <span class="project-tag">KoboCollect</span>
+        <span class="project-tag">Excel</span>
+        <span class="project-tag">Reporting</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">🗳️</div>
+      <div class="project-year">2019</div>
+      <div class="project-name">Collecte de données électorales — CENI</div>
+      <p class="project-desc">
+        Mission de collecte, d'analyse et de transfert sécurisé des données pour la Commission Électorale Nationale Indépendante de Madagascar.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">Collecte terrain</span>
+        <span class="project-tag">Validation données</span>
+        <span class="project-tag">Analyse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section style="max-width:1100px;margin:0 auto;padding:6rem 3rem;">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Formation</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-year">2021</div>
+      <div class="edu-degree">Licence en Topographie et Aménagements Écologiques</div>
+      <div class="edu-school">Institut des Sciences et Techniques de l'Environnement</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-year">2015</div>
+      <div class="edu-degree">Baccalauréat Série D</div>
+      <div class="edu-school">Madagascar</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section style="max-width:1100px;margin:0 auto;padding:2rem 3rem 6rem;">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Centres d'intérêt</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="interests-grid">
+    <div class="interest-card reveal">
+      <div class="interest-icon">🎵</div>
+      <div class="interest-title">Musique</div>
+      <div class="interest-desc">Piano, guitare, flûte, MAO, chant — passionné par la création musicale sous toutes ses formes.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="interest-icon">⚽</div>
+      <div class="interest-title">Sport</div>
+      <div class="interest-desc">Sports mécaniques, football, tennis — goût pour le dépassement de soi et la compétition.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="interest-icon">♟️</div>
+      <div class="interest-title">Jeux</div>
+      <div class="interest-desc">Jeux vidéo, échecs, jeux de stratégie et de réflexion — l'esprit analytique au service du plaisir.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="interest-icon">🏍️</div>
+      <div class="interest-title">Mobilité</div>
+      <div class="interest-desc">Permis A et B (2015) — autonomie et mobilité sur le terrain.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <section class="contact-wrapper" style="padding:6rem 3rem;max-width:1100px;margin:0 auto;">
+    <div class="section-header reveal">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info-card reveal">
+        <p style="font-size:0.78rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">
+          Disponible pour de nouvelles opportunités professionnelles. N'hésitez pas à me contacter pour discuter d'un projet ou d'une collaboration.
+        </p>
+        <a href="mailto:princyranda@gmail.com" class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">princyranda@gmail.com</div>
+          </div>
+        </a>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-label">Téléphone</div>
+            <div class="contact-value">+261 34 48 697 69</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Localisation</div>
+            <div class="contact-value">Nanisana, Antananarivo · Madagascar</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Nom</label>
+          <input type="text" class="form-input" placeholder="Votre nom">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Votre message…"></textarea>
+        </div>
+        <button type="submit" class="form-btn">Envoyer le message</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Princy Finaritra</div>
+  <div class="footer-text">© 2026 · Tous droits réservés</div>
+  <div class="footer-text">Antananarivo, Madagascar</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-btn');
+    btn.textContent = '✓ Message envoyé !';
+    btn.style.background = '#6ee7a0';
+    setTimeout(() => {
+      btn.textContent = 'Envoyer le message';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
