@@ -1055,6 +1055,43 @@ footer { border-top:1px solid var(--border); padding:2rem 4rem; display:flex; ju
     </div>
   </div>
 </div>
+  <!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // EmailJS init — remplace "YOUR_PUBLIC_KEY" après inscription sur emailjs.com
+  (function(){
+    emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
+  })();
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    const status = document.getElementById("formStatus");
+    btn.disabled = true;
+    btn.textContent = "Envoi en cours…";
+    status.style.display = "none";
+
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      from_name: document.getElementById("fromName").value,
+      from_email: document.getElementById("fromEmail").value,
+      message: document.getElementById("message").value,
+      to_email: "princyranda@gmail.com"
+    }).then(function() {
+      btn.textContent = "✓ Message envoyé !";
+      btn.style.background = "#6ee7a0";
+      status.style.color = "var(--accent)";
+      status.textContent = "Votre message a bien été envoyé. Merci !";
+      status.style.display = "block";
+      document.getElementById("contactForm").reset();
+      setTimeout(()=>{ btn.disabled=false; btn.textContent="Envoyer le message"; btn.style.background=""; }, 4000);
+    }, function(error) {
+      btn.disabled = false;
+      btn.textContent = "Envoyer le message";
+      status.style.color = "#f87171";
+      status.textContent = "Erreur d'envoi. Veuillez réessayer ou écrire directement à princyranda@gmail.com";
+      status.style.display = "block";
+    });
+  });
 
 <!-- FOOTER -->
 <footer>
